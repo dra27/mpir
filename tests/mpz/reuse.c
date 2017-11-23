@@ -34,23 +34,6 @@ MA 02110-1301, USA. */
 #include "gmp-impl.h"
 #include "tests.h"
 
-#if __GMP_LIBGMP_DLL
-
-/* FIXME: When linking to a DLL libmpir, mpz_add etc can't be used as
-   initializers for global variables because they're effectively global
-   variables (function pointers) themselves.  Perhaps calling a test
-   function successively with mpz_add etc would be better.  */
-
-int
-main (void)
-{
-  printf ("Test suppressed for windows DLL\n");
-  exit (0);
-}
-
-
-#else /* ! DLL_EXPORT */
-
 void dump _PROTO ((char *, mpz_t, mpz_t, mpz_t));
 
 typedef void (*dss_func) _PROTO ((mpz_ptr, mpz_srcptr, mpz_srcptr));
@@ -607,5 +590,3 @@ dump (char *name, mpz_t in1, mpz_t in2, mpz_t in3)
     }
   printf (")\n");
 }
-
-#endif /* ! DLL_EXPORT */

@@ -27,23 +27,6 @@ MA 02110-1301, USA. */
 #include "gmp-impl.h"
 #include "tests.h"
 
-#if __GMP_LIBGMP_DLL
-
-/* FIXME: When linking to a DLL libmpir, mpf_add etc can't be used as
-   initializers for global variables because they're effectively global
-   variables (function pointers) themselves.  Perhaps calling a test
-   function successively with mpf_add etc would be better.  */
-
-int
-main (void)
-{
-  printf ("Test suppressed for windows DLL\n");
-  exit (0);
-}
-
-
-#else /* ! DLL_EXPORT */
-
 #ifndef SIZE
 #define SIZE 16
 #endif
@@ -210,5 +193,3 @@ void mpf_abs		_PROTO ((mpf_ptr, mpf_srcptr));
 void mpf_sqrt		_PROTO ((mpf_ptr, mpf_srcptr));
 void mpf_neg		_PROTO ((mpf_ptr, mpf_srcptr));
 #endif
-
-#endif /* ! DLL_EXPORT */
