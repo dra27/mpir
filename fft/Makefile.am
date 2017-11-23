@@ -20,8 +20,7 @@
 # the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301, USA.
 
-
-AM_CPPFLAGS = -D__GMP_WITHIN_GMP -I$(top_srcdir)
+AM_CPPFLAGS = -I$(top_srcdir)
 
 EXTRA_DIST = 
 

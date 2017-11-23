@@ -21,8 +21,7 @@
 # MA 02110-1301, USA.
 
 
-AM_CPPFLAGS = -D__GMP_WITHIN_GMP -I$(top_srcdir) \
-  -DOPERATION_`echo $* | sed 's/_$$//'`
+AM_CPPFLAGS = -I$(top_srcdir) -DOPERATION_`echo $* | sed 's/_$$//'`
 
 OFILES = @mpn_objects@
 
