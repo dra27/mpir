@@ -54,7 +54,30 @@ fi
 
 GMP_INIT(config.m4)
 
+AC_ARG_ENABLE(this-cpu,
+AC_HELP_STRING([--this-cpu],[guess CPU type, even when cross-compiling [default=no]]),
+[case $enableval in
+yes|no) ;;
+*) AC_MSG_ERROR([bad value $enableval for --this-cpu, need yes or no]) ;;
+esac],
+[enable_this_cpu=no])
+
+saved_alias=
+if test x$enable_this_cpu = xyes; then
+  saved_alias=$build_alias
+  build_alias=
+fi
+
+AC_CANONICAL_BUILD
+if test -n "$saved_alias"; then
+  build_alias=$saved_alias
+  saved_alias=$host_alias
+  host_alias=$build_cpu[`echo $host_alias | sed -e 's/[^\-]*//'`]
+fi
 AC_CANONICAL_HOST
+if test -n "$saved_alias"; then
+  ac_tool_prefix="$saved_alias-"
+fi
 
 dnl  Automake "no-dependencies" is used because include file dependencies
 dnl  are not useful to us.  Pretty much everything depends just on mpir.h,
@@ -1437,7 +1460,7 @@ for abi in $abilist; do
     # prefixing for "maybe" as well as "yes".
     #
     if test "$cross_compiling" != no && test -z "$CC"; then
-      cross_compiling_prefix="${host_alias}-"
+      cross_compiling_prefix="${ac_tool_prefix}"
     fi
 
     for ccprefix in $cross_compiling_prefix ""; do
