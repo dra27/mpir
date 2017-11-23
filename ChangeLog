@@ -23,6 +23,7 @@ MA 02110-1301, USA.
 2017-11-17 David Allsopp <David.Allsopp@cl.cam.ac.uk>
     * Eliminate __GMP_WITHIN_GMP and __GMP_WITHIN_GMPXX.
     * tests/mp{f,z}/reuse.c: re-enable for DLL builds on Windows.
+    * Build system: allow both static and shared builds on Windows.
 
 2017-03-01 mpir-devel <http://groups.google.com/group/mpir-devel>
 

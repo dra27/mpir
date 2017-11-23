@@ -1554,10 +1554,12 @@ We strongly recommend using recent versions of Cygwin/Msys2.
 @cindex MS Windows
 @cindex Windows
 On systems @samp{*-*-cygwin*} and @samp{*-*-mingw*} and @samp{*-*-msys} static
-and DLL libraries can't both be built, since certain export directives in 
-@file{mpir.h} must be different. Therefore you must specify whether you want
-a shared library or a static library. For example if you want just a shared
-library you can type the following.
+and DLL libraries can both be built, but when compiling code to be linked
+against the DLL, GCC will generate better functions calls if
+\@samp{-D__GMP_DECLSPEC=__GMP_DECLSPEC_IMPORT} is added to CFLAGS (or
+\@samp{-D__GMP_DECLSPEC_XX=__GMP_DECLSPEC_IMPORT} to CXX_FLAGS for the C++ DLL).
+\@samp{__GMP_DECLSPEC} is automatically defined if only the DLL has been built.
+For example if you want just a shared library you can type the following.
 
 @example
 ./configure --disable-static --enable-shared

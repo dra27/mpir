@@ -160,12 +160,14 @@ along with the GNU MP Library.  If not, see http://www.gnu.org/licenses/.  */
 #  endif
 #endif
 
+#ifndef __GMP_DECLSPEC
 #if __GMP_LIBGMP_DLL
 /* compiling to go into an application which will link to a DLL libmpir */
 #define __GMP_DECLSPEC  __GMP_DECLSPEC_IMPORT
 #else
 /* all other cases */
 #define __GMP_DECLSPEC
+#endif
 #endif
 
 
@@ -279,12 +281,14 @@ typedef __gmp_const __mpq_struct *mpq_srcptr;
 typedef __mpq_struct *mpq_ptr;
 
 
+#ifndef __GMP_DECLSPEC_XX
 #if __GMP_LIBGMP_DLL
 /* compiling to go into a application which will link to a DLL libmpirxx */
 #define __GMP_DECLSPEC_XX  __GMP_DECLSPEC_IMPORT
 #else
 /* all other cases */
 #define __GMP_DECLSPEC_XX
+#endif
 #endif
 
 

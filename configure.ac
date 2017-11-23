@@ -1895,14 +1895,9 @@ LT_INIT([win32-dll])
 AC_SUBST(LIBGMP_DLL,0)
 case $host in
   *-pc-msys|*-*-cygwin* | *-*-mingw*)
-    # By default, build only static.
+    # By default, build only static (for compatibility).
     if test -z "$enable_shared"; then
       enable_shared=no
-    fi
-    # Don't allow both static and DLL.
-    if test "$enable_shared" != no && test "$enable_static" != no; then
-      AC_MSG_ERROR([cannot build both static and DLL, since mpir.h is different for each.
-Use "--disable-static --enable-shared" to build just a DLL.])
     fi
 
     # "-no-undefined" is required when building a DLL, see documentation on
@@ -1935,7 +1930,10 @@ Use "--disable-static --enable-shared" to build just a DLL.])
       GMP_LDFLAGS="$GMP_LDFLAGS -no-undefined -Wl,--export-all-symbols"
       LIBGMP_LDFLAGS="$LIBGMP_LDFLAGS -Wl,--output-def,.libs/libmpir-3.dll.def"
       LIBGMPXX_LDFLAGS="$LIBGMP_LDFLAGS -Wl,--output-def,.libs/libmpirxx-3.dll.def"
-      LIBGMP_DLL=1
+      # Automatically add __declspec(__dllimport__) if not building static libs
+      if test "$enable_static" = no; then
+        LIBGMP_DLL=1
+      fi
     fi
     ;;
 esac
